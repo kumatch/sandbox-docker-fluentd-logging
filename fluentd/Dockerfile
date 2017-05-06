@@ -1,1 +1,1 @@
-FROM fluent/fluentd
+FROM fluent/fluentd:onbuild
