@@ -1,21 +1,28 @@
 sandbox-docker-fluentd-logging
 ======
 
-## Fluentd logging server container
+(Sandbox)
+
+
+## Usage
+
+### Creates Fluentd logging server container
 
 ```
 $ docker build -t sandbox-fluentd ./fluentd
 $ docker run --name logger -d sandbox-fluentd
 ```
 
-## log container (nginx)
+### Creates log send container (ex. Nginx)
 
 ```
 $ docker build -t sandbox-nginx ./nginx
-$ docker run --name web1 -p 80:80 -d sandbox-nginx
+$ docker run -d --name web1 -p 80:80 --log-driver=fluentd --log-opt fluentd-address=localhost:24224 --log-opt fluentd-tag=docker.{{.FullID}} sandbox-nginx
 ```
 
-## and logging
+### See logs
+
+displays nginx access logs.
 
 ```
 $ docker logs -f logger
