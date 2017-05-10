@@ -17,7 +17,11 @@ $ docker run --name logger -d sandbox-fluentd
 
 ```
 $ docker build -t sandbox-nginx ./nginx
-$ docker run -d --name web1 -p 80:80 --log-driver=fluentd --log-opt fluentd-address=localhost:24224 --log-opt fluentd-tag=docker.{{.FullID}} sandbox-nginx
+$ docker run -d --name web1 -p 80:80 \
+  --log-driver=fluentd \
+  --log-opt fluentd-address="localhost:24224" \
+  --log-opt tag=docker.{{.FullID}} \
+  sandbox-nginx
 ```
 
 ### See logs
